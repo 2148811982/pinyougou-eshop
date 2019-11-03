@@ -1,22 +1,19 @@
 package com.pinyougou.seckill.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 
 import com.pinyougou.pay.service.WeixinPayService;
-import com.pinyougou.pojo.TbPayLog;
 import com.pinyougou.pojo.TbSeckillOrder;
 import com.pinyougou.seckill.service.SeckillOrderService;
 
 import entity.Result;
-import util.IdWorker;
 
 @RestController
 @RequestMapping("/pay")
@@ -88,7 +85,7 @@ public class PayController {
 				}
 				
 				//删除订单
-				if(result.isSuccess()==false){
+				if(!result.isSuccess()){
 					seckillOrderService.deleteOrderFromRedis(username, Long.valueOf(out_trade_no));
 				}
 				break;				
